@@ -14,11 +14,12 @@
                     <option value="" disabled selected hidden="">Choose type</option>
                     <option th:each="type: ${types}" th:text="${type}" th:value="${type}"></option>
                 </select>
-                <input th:field="*{name}" type="text" placeholder="Name">
+                <input th:field="*{name}" type="text" placeholder="Name" th:action="@{/submitItem}">
                 <input th:field="*{rarity}" class="half" type="text" placeholder="Rarity">
                 <input th:field="*{price}" class="half" type="text" placeholder="Price">
                 <h4>Item dropped</h4>
                 <input th:field="*{date}" type="date" style="color:black">
+                <input th:field="*{id}" type="hidden">
                 <input type="submit" value="Submit Item">
             </form>
         </div>      

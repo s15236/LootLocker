@@ -3,8 +3,10 @@ package com.lootlocker;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class Item {
+    private String id;
     private String type;
     private String name;
     private String rarity;
@@ -14,6 +16,15 @@ public class Item {
 
     public Item() {
         System.out.println("jd");
+        this.id = UUID.randomUUID().toString();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getType() {
