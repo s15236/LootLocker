@@ -15,7 +15,6 @@ public class Item {
     private Date date;
 
     public Item() {
-        System.out.println("jd");
         this.id = UUID.randomUUID().toString();
     }
 

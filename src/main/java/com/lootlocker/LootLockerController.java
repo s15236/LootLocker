@@ -5,8 +5,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -28,13 +32,17 @@ public class LootLockerController {
     }
 
     @PostMapping("/submitItem")
-    public String handleSubmit(Item item) {
+    public String handleSubmit(Item item, RedirectAttributes redirectAttributes) {
         int index = getItemIndex(item.getId());
-        if(index == Constants.NOT_FOUND) {
+        String status = Constants.SUCCESS_STATUS;
+        if(!isValidDate(item.getDate())) {
+            status = Constants.FAILED_STATUS;
+        } else if((index == Constants.NOT_FOUND)) {
             items.add(item);
         } else {
             items.set(index, item);
         }
+        redirectAttributes.addFlashAttribute("status", status);
         return "redirect:/inventory";
     }
 
@@ -43,5 +51,9 @@ public class LootLockerController {
             if(items.get(i).getId().equals(id)) return i;
         }
         return Constants.NOT_FOUND;
+    }
+
+    public static boolean isValidDate(Date date) {
+        return new Date().after(date);
     }
 }
