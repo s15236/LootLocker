@@ -4,15 +4,15 @@
     </head>    
     <body>
         <div class="topnav">
-            <a class="active">Form</a>
-            <a>Inventory</a>
+            <a th:href="@{/}" class="active">Form</a>
+            <a th:href="@{/inventory}">Inventory</a>
         </div>
         <div class="container">    
             <h2> Loot Locker </h2>
             <form method="post">
-                <select class="select">
-                    <option style="color:blue">Choose Type</option>
-                    <option> Placeholder </option>
+                <select th:field="${types}" class="select">
+                    <option value="" disabled selected hidden="">Choose type</option>
+                    <option th:each="type: ${types}" th:value="${type}" th:text="${type}"></option>
                 </select>
                 <input type="text" placeholder="Name">
                 <input class="half" type="text" placeholder="Rarity">
