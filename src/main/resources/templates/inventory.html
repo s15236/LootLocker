@@ -4,8 +4,8 @@
     </head>    
     <body>
         <div class="topnav">
-            <a  th:href="@{/}" >Form</a>
-            <a class="active" th:href="@{/inventory}">Inventory</a>
+            <a th:href="@{/}">Form</a>
+            <a th:href="@{/inventory}" class="active">Inventory</a>
         </div>
    
         <div class="container">
@@ -18,13 +18,13 @@
                  <th>Item dropped</th>
                  <th> </th>
               </tr>
-              <tr>
-                  <td >Weapon</td>
-                  <td >Excalibur</th>
-                 <td >Legendary</td>
-                 <td type="currency">1657.23</td>
-                 <td type="date">1996-02-02</td>
-                 <td>
+              <tr th:each="item: ${items}">
+                  <td th:text="${item.type}"></td>
+                  <td th:text="${item.name}"></td>
+                  <td th:text="${item.rarity}"></td>
+                  <td th:text="${#numbers.formatCurrency(item.price)}"></td>
+                  <td th:text="${#dates.format(item.date,'dd-MM-yyyy')}" type="date"></td>
+                  <td>
                     <a role="button" style="color:white; background-color: #263238" class="table-button">Update</a>
                  </td>
               </tr>
