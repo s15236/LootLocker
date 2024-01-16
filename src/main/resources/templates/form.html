@@ -10,14 +10,22 @@
         <div class="container">    
             <h2> Loot Locker </h2>
             <form method="post" th:object="${item}" th:action="@{/submitItem}">
+                <p style="color:red" th:errors="*{type}"></p>
                 <select th:field="*{type}" class="select">
-                    <option value="" disabled selected hidden="">Choose type</option>
+                    <option value="" selected="">Choose type</option>
+                    <option value="Weapon">Weapon</option>
+                    <option value="Armor">Armor</option>
+                    <option value="Material">Material</option>
                     <option th:each="type: ${types}" th:text="${type}" th:value="${type}"></option>
                 </select>
+                <p style="color:red" th:errors="*{name}"></p>
                 <input th:field="*{name}" type="text" placeholder="Name" th:action="@{/submitItem}">
+                <p style="color:red" class="half" th:errors="*{rarity}"></p>
+                <p style="color:red" class="half" th:errors="*{price}"></p>
                 <input th:field="*{rarity}" class="half" type="text" placeholder="Rarity">
                 <input th:field="*{price}" class="half" type="text" placeholder="Price">
                 <h4>Item dropped</h4>
+                <p style="color:red" th:errors="*{date}"></p>
                 <input th:field="*{date}" type="date" style="color:black">
                 <input th:field="*{id}" type="hidden">
                 <input type="submit" value="Submit Item">

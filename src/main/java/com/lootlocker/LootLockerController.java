@@ -2,11 +2,13 @@ package com.lootlocker;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,7 +23,6 @@ public class LootLockerController {
     public String getForm(Model model, @RequestParam(required = false)String id) {
         int index = getItemIndex(id);
         model.addAttribute("item", index == Constants.NOT_FOUND ? new Item() : items.get(index));
-        model.addAttribute("types", Constants.TYPES);
         return "form";
     }
 
@@ -32,7 +33,9 @@ public class LootLockerController {
     }
 
     @PostMapping("/submitItem")
-    public String handleSubmit(Item item, RedirectAttributes redirectAttributes) {
+    public String handleSubmit(@Valid Item item, BindingResult result, RedirectAttributes redirectAttributes) {
+        if(item.getDate() == null) return "form";
+        if(result.hasErrors()) return "form";
         int index = getItemIndex(item.getId());
         String status = Constants.SUCCESS_STATUS;
         if(!isValidDate(item.getDate())) {
