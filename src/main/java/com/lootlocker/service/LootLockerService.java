@@ -3,13 +3,19 @@ package com.lootlocker.service;
 import com.lootlocker.Constants;
 import com.lootlocker.Item;
 import com.lootlocker.repository.LootLockerRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class LootLockerService {
 
     LootLockerRepository repository = new LootLockerRepository();
+
+    public LootLockerService(LootLockerRepository repository) {
+        this.repository = repository;
+    }
 
     public Item getItem(int index) {
         return repository.getItem(index);

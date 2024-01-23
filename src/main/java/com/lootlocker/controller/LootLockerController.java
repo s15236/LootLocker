@@ -12,16 +12,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @Controller
 public class LootLockerController {
+    LootLockerService service;
 
-    LootLockerService service = new LootLockerService();
+    public LootLockerController(LootLockerService service) {
+        this.service = service;
+    }
 
     @GetMapping("/")
     public String getForm(Model model, @RequestParam(required = false)String id) {
